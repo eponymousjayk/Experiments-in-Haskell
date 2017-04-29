@@ -1,4 +1,5 @@
 data Dual u = D (u,u) deriving(Show)
+
 instance (Num a) => Num (Dual a) where
    (+) (D (u,u')) (D (v,v')) = (D (u+v,u'+v'))
    (-) (D (u,u')) (D (v,v')) = (D (u-v,u'-v'))
