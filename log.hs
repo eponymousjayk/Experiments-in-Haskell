@@ -15,5 +15,4 @@ logBase' b a
 
 log2 = logBase' 2
 
-e = 1 + 1 + 1/2 + 1/6 + 1/24 + 1/120 + 1/720 + 1/5040 + 1/40320
-ln' = logBase' e
+ln = logBase' (exp 1)
