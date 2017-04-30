@@ -1,24 +1,27 @@
-data Dual u = D (u,u) deriving(Show)
+data Dual u = D (u,u)
 
-instance (Num a) => Num (Dual a) where
+instance (Show u) => Show (Dual u) where
+   show (D(u,v)) = (show u) ++ " + " ++ (show v) ++ "e"
+
+instance (Num u) => Num (Dual u) where
    (+) (D (u,u')) (D (v,v')) = (D (u+v,u'+v'))
    (-) (D (u,u')) (D (v,v')) = (D (u-v,u'-v'))
    (*) (D (u,u')) (D (v,v')) = (D (u*v,u'*v + u*v'))
    abs (D (u,u')) = (D (abs u, u' * (signum u)))
-   signum (D (u,u')) = (D (signum u, signum u'))
+   signum (D (u,u')) = (D (signum u, 0))
    fromInteger n = (D (fromInteger n,0))
 
-instance (Fractional a) => Fractional (Dual a) where
+instance (Fractional u) => Fractional (Dual u) where
    (/) (D (u,u')) (D (v,v')) = (D (u/v, (u'*v - u*v')/(v*v)))
    fromRational r = (D (fromRational r, 0))
 
-instance (Eq a) => Eq (Dual a) where
+instance (Eq u) => Eq (Dual u) where
    (==) (D (u,u')) (D (v,v')) = u == v
 
-instance (Ord a) => Ord (Dual a) where
+instance (Ord u) => Ord (Dual u) where
    (<=) (D (u,u')) (D (v,v')) = (u <= v)
 
-instance (Floating a, Fractional a) => Floating (Dual a) where
+instance (Floating u, Fractional u) => Floating (Dual u) where
    pi = (D (pi,0))
    exp (D (u,u')) = (D (exp u, u' * exp (u)))
    log (D (u,u')) = (D (log u, u'/u))
@@ -33,6 +36,7 @@ instance (Floating a, Fractional a) => Floating (Dual a) where
    acosh (D (u,u')) = (D (acosh u, u'/(sqrt (u*u - 1))))
    atanh (D (u,u')) = (D (atanh u, u'/(1 - u*u)))
 
+
 derivative f x = getEpsilonCoefficient $ f (D(x,1))
 
-getEpsilonCoefficient (D (u,v)) = v
+getEpsilonCoefficient (D(u,v)) = v
