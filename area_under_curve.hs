@@ -10,7 +10,8 @@ sin' = (integrateFrom0 cos)
 -- less clean because the integral of sin is -cos, and cos(0) is 1
 cos' = (\x -> 1 - x) . (integrateFrom0 sin)
 
-slopeapprox xi f x = (f(x + xi) - f(x))/xi
+slopeapprox xi f x = (f(x + xi) - f(x - xi))/(2*xi)
+
 derivative = slopeapprox 0.000000000001
 
 cos'' = derivative sin

@@ -1,7 +1,7 @@
 data Dual u = D (u,u)
 
 instance (Show u) => Show (Dual u) where
-   show (D(u,v)) = (show u) ++ " + " ++ (show v) ++ "e"
+   show (D(u,v)) = "(" ++ (show u) ++ " + " ++ (show v) ++ "e)"
 
 instance (Num u) => Num (Dual u) where
    (+) (D (u,u')) (D (v,v')) = (D (u+v,u'+v'))
@@ -36,7 +36,7 @@ instance (Floating u, Fractional u) => Floating (Dual u) where
    acosh (D (u,u')) = (D (acosh u, u'/(sqrt (u*u - 1))))
    atanh (D (u,u')) = (D (atanh u, u'/(1 - u*u)))
 
-
-derivative f x = getEpsilonCoefficient $ f (D(x,1))
-
 getEpsilonCoefficient (D(u,v)) = v
+derivative f = getEpsilonCoefficient . f . toDual
+
+toDual x = D(x,1)

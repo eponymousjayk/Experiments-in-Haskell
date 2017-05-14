@@ -1,6 +1,6 @@
 -- Something to do with the reimann zeta function.
 
-epsilon = 0.000000000001
+epsilon = 0.0000000000000001
 
 zeta' x = sum $ takeWhile (>0) $ map (\y -> if (1/(y**x) < epsilon) then 0 else (1/(y**x))) [1,2..]
 
