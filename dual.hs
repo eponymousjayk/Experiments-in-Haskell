@@ -1,4 +1,4 @@
-data Dual u = D (u,u)
+data Dual u = D(u,u)
 
 instance (Show u) => Show (Dual u) where
    show (D(u,v)) = "(" ++ (show u) ++ " + " ++ (show v) ++ "e)"
